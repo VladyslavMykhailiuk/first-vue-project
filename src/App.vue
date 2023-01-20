@@ -20,6 +20,7 @@ export default {
     return {
       inputValue: '',
       card: {},
+      cityList: JSON.parse(localStorage.getItem('cityArray')) || [],
       cardList: JSON.parse(localStorage.getItem('dataArray')) || []
     }
   },
@@ -30,16 +31,25 @@ export default {
   },
   methods: {
     clicker(card) {
-      this.card = card;
-      this.card.uid = this.card.id + Math.floor(Math.random() * 100000)
-      this.cardList.push(this.card)
-      localStorage.setItem('dataArray', JSON.stringify(this.cardList));
+      if (!this.cityList.includes(card.name)) {
+        this.card = card;
+        this.card.uid = this.card.id + Math.floor(Math.random() * 100000)
+        this.cardList.push(this.card)
+        this.cityList.push(this.card.name)
+        localStorage.setItem('cityArray', JSON.stringify(this.cityList))
+        localStorage.setItem('dataArray', JSON.stringify(this.cardList));
+      }
+      else {
+        alert('DANGER')
+      }
     },
     deleteCard(id) {
       this.cardList.forEach((element, index) => {
         if (element.uid === id) {
           this.cardList.splice(index, 1)
+          this.cityList.splice(index, 1)
           localStorage.setItem('dataArray', JSON.stringify(this.cardList));
+          localStorage.setItem('cityArray', JSON.stringify(this.cityList))
         }
       });
     },
@@ -52,11 +62,13 @@ export default {
             },
           }).then((response) => {
             this.cardList.splice(index, 1, response.data)
+            this.cityList.splice(index, 1, response.data.name)
             localStorage.setItem('dataArray', JSON.stringify(this.cardList));
+            localStorage.setItem('cityArray', JSON.stringify(this.cityList))
           });
         }
       });
-    }
+    },
   },
 }
 </script>

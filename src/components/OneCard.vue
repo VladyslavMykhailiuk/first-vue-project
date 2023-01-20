@@ -1,6 +1,6 @@
 <template>
     <div class="orange">
-        <p> {{ card.name }}</p>
+        <p> {{ card.name }} </p>
         <p> {{ Math.round(card.main.temp) }}</p>
         <input v-model="inputCard" @input="$emit('update:modelValue', $event.target.value)" type="text"
             class="updateInput">
