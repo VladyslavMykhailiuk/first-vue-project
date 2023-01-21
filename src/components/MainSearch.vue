@@ -2,8 +2,9 @@
     <div class="row">
         <div class="col-12">
             <div class="main-search-block">
-                <input v-model="test1" @input="$emit('update:modelValue', $event.target.value)" type="text"
-                    class="search-main">
+                <GMapAutocomplete class="search-main" v-bind:value="test1" v-on:input="test1 = $event.target.value"
+                    placeholder="Введіть ваше місто">
+                </GMapAutocomplete>
                 <button v-on:click="searchForCard(test1)" type="submit" class="form-btn main-btn">
                     <i class="fas fa-search"></i>
                 </button>
@@ -31,6 +32,7 @@ export default {
         drawCard(response) {
             const forecast = response.data;
             this.createElement(forecast);
+            this.test1 = '';
         },
         searchForCard(city) {
             axiosInstance.get('weather', {

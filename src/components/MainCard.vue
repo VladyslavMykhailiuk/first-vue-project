@@ -3,8 +3,9 @@
         <div class="row">
             <div class="col-lg-9 col-md-9 col-sm-12">
                 <form>
-                    <input v-model="searchInput" type="text" placeholder="Type a city" autocomplete="off"
-                        class="search-box" id="searched-city" />
+                    <GMapAutocomplete class="search-box" id="searched-city" v-bind:value="searchInput"
+                        v-on:input="searchInput = $event.target.value" placeholder="Введіть ваше місто">
+                    </GMapAutocomplete>
                     <button v-on:click="clickOnSearch" type="submit" class="form-btn" id="submit-btn">
                         <i class="fas fa-search"></i>
                     </button>
@@ -133,6 +134,7 @@ export default {
             event.preventDefault();
             this.search(this.searchInput)
             this.searchInput = ''
+
         },
         formatDate(timestamp) {
             const date = new Date(timestamp);

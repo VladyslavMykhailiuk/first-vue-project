@@ -11,6 +11,7 @@ import axiosInstance from '@/assets/AxiosInstance'
 import MainSearch from '@/components/MainSearch';
 import MainCard from '@/components/MainCard'
 import WeatherCards from '@/components/WeatherCards.vue'
+import Swal from 'sweetalert2'
 export default {
   name: 'App',
   props: {
@@ -27,7 +28,7 @@ export default {
   components: {
     MainSearch,
     MainCard,
-    WeatherCards
+    WeatherCards,
   },
   methods: {
     clicker(card) {
@@ -35,12 +36,12 @@ export default {
         this.card = card;
         this.card.uid = this.card.id + Math.floor(Math.random() * 100000)
         this.cardList.push(this.card)
-        this.cityList.push(this.card.name)
+        this.cityList.push(this.card.name.split(',')[0])
         localStorage.setItem('cityArray', JSON.stringify(this.cityList))
         localStorage.setItem('dataArray', JSON.stringify(this.cardList));
       }
       else {
-        alert('DANGER')
+        this.showPopup();
       }
     },
     deleteCard(id) {
@@ -54,21 +55,35 @@ export default {
       });
     },
     updateCard(id) {
-      this.cardList.forEach((element, index) => {
-        if (element.uid === id) {
-          axiosInstance.get('weather', {
-            params: {
-              "q": this.inputValue,
-            },
-          }).then((response) => {
-            this.cardList.splice(index, 1, response.data)
-            this.cityList.splice(index, 1, response.data.name)
-            localStorage.setItem('dataArray', JSON.stringify(this.cardList));
-            localStorage.setItem('cityArray', JSON.stringify(this.cityList))
-          });
-        }
-      });
+      if (this.cityList.includes(this.inputValue)) {
+        this.showPopup();
+      }
+      else {
+        this.cardList.forEach((element, index) => {
+          if (element.uid === id) {
+            axiosInstance.get('weather', {
+              params: {
+                "q": this.inputValue,
+              },
+            }).then((response) => {
+              this.card = response.data;
+              this.card.uid = this.card.id + Math.floor(Math.random() * 100000)
+              this.cardList.splice(index, 1, this.card)
+              this.cityList.splice(index, 1, this.card.name.split(',')[0])
+              localStorage.setItem('dataArray', JSON.stringify(this.cardList));
+              localStorage.setItem('cityArray', JSON.stringify(this.cityList))
+
+            });
+          }
+        })
+      }
     },
+    showPopup() {
+      Swal.fire({
+        icon: 'error',
+        title: 'У вас вже є це місто в доданих, додайте нове.',
+      })
+    }
   },
 }
 </script>
