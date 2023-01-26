@@ -40,8 +40,10 @@ export default {
                 Swal.fire({
                     icon: 'error',
                     title: 'Для взаємодії з картками потрібно авторизуватися',
+                }).then(() => {
+                    this.test1 = '';
+                    this.$router.push('/auth')
                 })
-                this.$router.push('/auth')
             }
             else {
                 const forecast = response.data;

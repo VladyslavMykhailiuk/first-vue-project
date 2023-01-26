@@ -57,7 +57,6 @@ export default {
             };
             this.loginUser(userData);
             this.$router.push('/user')
-            // console.log(this.user.username.length)
         },
         show() {
             let p = document.getElementById('pwd');

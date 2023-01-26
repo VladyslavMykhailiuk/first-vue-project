@@ -5,7 +5,7 @@
             <input v-model="inputValue" placeholder="Введіть ваше місто">
             <button v-on:click="deleteChart">Відрисувати графік</button>
         </div>
-        <h3>Останнє введене місто: {{ cityName }}</h3>
+        <h3>Останнє введене місто: {{ graphic.city.name }}</h3>
         <canvas id="myChart"></canvas>
 
     </div>
@@ -13,7 +13,8 @@
 
 <script>
 import Chart from "chart.js/auto"
-import axiosInstance from "@/assets/AxiosInstance"
+import { useGraphicStore } from "@/stores/graphicStore";
+import { mapState, mapActions } from "pinia";
 
 export default {
     name: 'GraphicPage',
@@ -44,8 +45,10 @@ export default {
 
     },
     computed: {
+        ...mapState(useGraphicStore, ["graphic"]),
     },
     methods: {
+        ...mapActions(useGraphicStore, ["getGraphic"]),
         createChart() {
             this.test = new Chart(
                 document.getElementById('myChart'),
@@ -58,30 +61,16 @@ export default {
             }
             else {
                 this.test.destroy()
-                this.searchCity(this.inputValue);
-                localStorage.setItem('lastGraphCity', JSON.stringify(this.inputValue))
+                this.config.data.labels = []
+                this.config.data.datasets[0].data = []
+                this.getGraphic(this.inputValue, this.config.data.labels, this.config.data.datasets[0].data, this.createChart)
             }
         },
-        searchCity(name) {
-            axiosInstance.get('forecast', {
-                params: {
-                    "q": name,
-                },
-            }).then((response) => {
-                this.cityName = response.data.city.name;
-                response.data.list.forEach(element => {
-                    this.config.data.labels.push(element.dt_txt)
-                    this.config.data.datasets[0].data.push(element.main.temp)
-                });
-                this.createChart();
-                this.config.data.labels = [];
-                this.config.data.datasets[0].data = [];
-            })
-        },
-
     },
     mounted() {
-        this.searchCity(JSON.parse(localStorage.getItem('lastGraphCity')))
+        if (!Object.keys(this.graphic).length == 0) {
+            this.getGraphic(this.graphic.city.name, this.config.data.labels, this.config.data.datasets[0].data, this.createChart)
+        }
     }
 
 }
@@ -105,8 +94,8 @@ h3 {
     border-radius: 12px;
     background-color: bisque;
     margin-top: 20px;
-    width: 1000px;
-    height: 800px;
+    width: 1000px !important;
+    height: 450px !important;
 }
 
 .search {

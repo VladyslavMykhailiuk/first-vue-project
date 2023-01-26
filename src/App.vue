@@ -1,7 +1,11 @@
 <template>
   <div class="container">
     <HeaderComp />
-    <router-view></router-view>
+    <router-view v-slot="{ Component }">
+      <keep-alive include="WeatherPage,GraphicPage">
+        <component :is="Component" />
+      </keep-alive>
+    </router-view>
   </div>
 </template>
 

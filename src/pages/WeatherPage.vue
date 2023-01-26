@@ -54,8 +54,9 @@ export default {
                 Swal.fire({
                     icon: 'error',
                     title: 'Для взаємодії з картками потрібно авторизуватися',
+                }).then(() => {
+                    this.$router.push('/auth')
                 })
-                this.$router.push('/auth')
             }
             else {
                 this.cardList.forEach((element, index) => {
@@ -72,9 +73,10 @@ export default {
             if (Object.keys(this.user).length == 0) {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Потрібно ввійти для взаємодії з картками',
+                    title: 'Для взаємодії з картками потрібно авторизуватися',
+                }).then(() => {
+                    this.$router.push('/auth')
                 })
-                this.$router.push('/auth')
             }
             else {
                 if (this.cityList.includes(this.inputValue)) {

@@ -48,7 +48,6 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
     const store = useAuthStore();
-    console.log(store.user)
     if (requiresAuth && !store.user.username) {
         next('/auth');
     } else {
