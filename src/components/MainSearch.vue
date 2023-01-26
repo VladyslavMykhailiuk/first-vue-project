@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-12">
             <div class="main-search-block">
-                <GMapAutocomplete class="search-main" v-bind:value="test1" v-on:input="test1 = $event.target.value"
+                <GMapAutocomplete class="search-main" v-bind:value="test1" v-on:change="test1 = $event.target.value"
                     placeholder="Введіть ваше місто">
                 </GMapAutocomplete>
                 <button v-on:click="searchForCard(test1)" type="submit" class="form-btn main-btn">
@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import { useAuthStore } from "@/stores/authStore";
+import { mapState } from "pinia";
 import axiosInstance from '@/assets/AxiosInstance'
 export default {
     name: 'MainSearch',
@@ -23,6 +25,9 @@ export default {
             card: {},
         }
     },
+    computed: {
+        ...mapState(useAuthStore, ["user"]),
+    },
     methods: {
         createElement(param) {
             this.card = param
@@ -30,9 +35,15 @@ export default {
         },
 
         drawCard(response) {
-            const forecast = response.data;
-            this.createElement(forecast);
-            this.test1 = '';
+            if (Object.keys(this.user).length == 0) {
+                alert('Потрібно ввійти для взаємодії з картками')
+                this.$router.push('/auth')
+            }
+            else {
+                const forecast = response.data;
+                this.createElement(forecast);
+                this.test1 = '';
+            }
         },
         searchForCard(city) {
             axiosInstance.get('weather', {

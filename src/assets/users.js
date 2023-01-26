@@ -1,0 +1,8 @@
+export const users = [
+    { username: 'Trololo', password: '1421dsg2', name: 'Oleg', surname: 'Pupkin', status: 'Have a nice day!', img: 'https://klike.net/uploads/posts/2019-03/1551511801_1.jpg', github: 'github.com/Kolibru', instagram: '@tinkiVinki', phone: '+38013413550', adress: 'Ukraine, Ivano-Frankivsk' },
+    { username: 'Lolipop', password: 'al123w', name: 'David', surname: 'Rovniy', status: 'Full time hard work...', img: 'https://hostenko.com/wpcafe/wp-content/uploads/rndavatar.png', github: 'github.com/Osliua', instagram: '@Resheto', phone: '+38013413550', adress: 'Ukraine, Rivne' },
+    { username: 'Krabster', password: 'qwet43', name: 'Ivan', surname: 'Gladkiy', status: 'Have a many nice evenings', img: 'https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/3a/3a2a62341f07191683727da418d357c52333d59c_full.jpg', github: 'github.com/reveran', instagram: '@Olif', phone: '+38013413550', adress: 'Ukraine, Rakhiv' },
+    { username: 'Rekeri', password: 'pkgj34', name: 'Mykola', surname: 'Mishna', status: 'Go to the trip around the world', img: 'https://w7.pngwing.com/pngs/455/826/png-transparent-gfycat-desktop-picsart-studio-avatar-steam-angle-smiley-desktop-wallpaper-thumbnail.png', github: 'github.com/Kartel', instagram: '@Amigos', phone: '+38013413550', adress: 'Ukraine, Kharkiv' },
+    { username: 'Lertran', password: 'evovfojv23', name: 'Evgen', surname: 'Jhonson', status: 'Leaving in the London and drink coffee', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSj8ScLhY7EAAx-eS4Ze26F5wG5PImaqP9WV7rL87weUSVL96cswrgpXelHTvFWXEvA9dw&usqp=CAU', github: 'github.com/coachKarter', instagram: '@Hendalf', phone: '+38013413550', adress: 'Ukraine, Zaporizhia' },
+]
+

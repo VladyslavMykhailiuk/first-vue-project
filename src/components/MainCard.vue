@@ -66,6 +66,8 @@
 
 <script>
 import axiosInstance from '@/assets/AxiosInstance'
+import { useWeatherStore } from "@/stores/weatherStore";
+import { mapState, mapActions } from "pinia";
 
 const weekDays = [
     "Sunday",
@@ -96,7 +98,11 @@ export default {
 
         }
     },
+    computed: {
+        ...mapState(useWeatherStore, ["weather"]),
+    },
     methods: {
+        ...mapActions(useWeatherStore, ["getWeather"]),
         getCurrentLocation(event) {
             event.preventDefault()
             navigator.geolocation.getCurrentPosition((position) => {
@@ -133,6 +139,7 @@ export default {
         clickOnSearch(event) {
             event.preventDefault();
             this.search(this.searchInput)
+            localStorage.setItem('lastCity', JSON.stringify(this.searchInput))
             this.searchInput = ''
 
         },
@@ -162,10 +169,11 @@ export default {
                     "q": city,
                 },
             }).then(this.displayForecast);
+            this.getWeather()
         },
     },
     mounted() {
-        this.search('Kyiv')
+        this.search(JSON.parse(localStorage.getItem('lastCity')));
     }
 }
 </script>
@@ -174,11 +182,11 @@ export default {
 <style>
 .box {
     width: 600px;
-    margin-top: 20px;
     border: 0.7px solid #636363;
     border-radius: 10px;
     margin-bottom: 5px;
     background-color: rgb(5, 139, 201);
+    margin: 20px auto 20px auto;
 }
 
 .fas {
