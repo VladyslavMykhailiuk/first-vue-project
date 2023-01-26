@@ -51,7 +51,10 @@ export default {
         },
         deleteCard(id) {
             if (Object.keys(this.user).length == 0) {
-                alert('Потрібно ввійти для взаємодії з картками')
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Для взаємодії з картками потрібно авторизуватися',
+                })
                 this.$router.push('/auth')
             }
             else {
@@ -67,7 +70,10 @@ export default {
         },
         updateCard(id) {
             if (Object.keys(this.user).length == 0) {
-                alert('Потрібно ввійти для взаємодії з картками')
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Потрібно ввійти для взаємодії з картками',
+                })
                 this.$router.push('/auth')
             }
             else {

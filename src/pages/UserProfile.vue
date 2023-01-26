@@ -56,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-                <div>
+                <div class="center">
                     <p>Запам'ятай і відкрий всі зелені клітинки</p>
                     <BoardItem />
                 </div>
@@ -105,7 +105,16 @@ section {
     border-radius: 12px;
 }
 
-.btn {
-    margin-top: 10px;
+
+.center p {
+    text-align: center;
+    color: green;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 </style>

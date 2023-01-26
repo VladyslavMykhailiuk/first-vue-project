@@ -68,9 +68,9 @@ export default {
     border: none;
     border-radius: 2px;
     padding: 10px 30px;
-    margin: 10px 0;
     cursor: pointer;
     outline: none;
+    margin-left: 100px;
 }
 
 button:hover {

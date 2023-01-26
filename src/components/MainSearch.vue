@@ -17,6 +17,7 @@
 import { useAuthStore } from "@/stores/authStore";
 import { mapState } from "pinia";
 import axiosInstance from '@/assets/AxiosInstance'
+import Swal from 'sweetalert2'
 export default {
     name: 'MainSearch',
     data() {
@@ -36,7 +37,10 @@ export default {
 
         drawCard(response) {
             if (Object.keys(this.user).length == 0) {
-                alert('Потрібно ввійти для взаємодії з картками')
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Для взаємодії з картками потрібно авторизуватися',
+                })
                 this.$router.push('/auth')
             }
             else {
@@ -74,6 +78,7 @@ export default {
     background-color: rgb(249, 249, 249);
     border: none;
     outline: none;
+    padding-left: 15px;
 }
 
 .main-btn {

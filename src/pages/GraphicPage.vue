@@ -43,6 +43,8 @@ export default {
     props: {
 
     },
+    computed: {
+    },
     methods: {
         createChart() {
             this.test = new Chart(

@@ -4,7 +4,7 @@
             <div class="col-lg-9 col-md-9 col-sm-12">
                 <form>
                     <GMapAutocomplete class="search-box" id="searched-city" v-bind:value="searchInput"
-                        v-on:input="searchInput = $event.target.value" placeholder="Введіть ваше місто">
+                        v-on:change="searchInput = $event.target.value" placeholder="Введіть ваше місто">
                     </GMapAutocomplete>
                     <button v-on:click="clickOnSearch" type="submit" class="form-btn" id="submit-btn">
                         <i class="fas fa-search"></i>
@@ -102,7 +102,7 @@ export default {
         ...mapState(useWeatherStore, ["weather"]),
     },
     methods: {
-        ...mapActions(useWeatherStore, ["getWeather"]),
+        ...mapActions(useWeatherStore, ["searchWeather"]),
         getCurrentLocation(event) {
             event.preventDefault()
             navigator.geolocation.getCurrentPosition((position) => {
@@ -138,8 +138,7 @@ export default {
         },
         clickOnSearch(event) {
             event.preventDefault();
-            this.search(this.searchInput)
-            localStorage.setItem('lastCity', JSON.stringify(this.searchInput))
+            this.searchWeather(this.searchInput, this.ShowRealTemp, this.displayForecast)
             this.searchInput = ''
 
         },
@@ -158,22 +157,11 @@ export default {
 
             return `${hours}:${minutes}`;
         },
-        search(city) {
-            axiosInstance.get('weather', {
-                params: {
-                    "q": city,
-                },
-            }).then(this.ShowRealTemp)
-            axiosInstance.get('forecast', {
-                params: {
-                    "q": city,
-                },
-            }).then(this.displayForecast);
-            this.getWeather()
-        },
     },
     mounted() {
-        this.search(JSON.parse(localStorage.getItem('lastCity')));
+        if (!Object.keys(this.weather).length == 0) {
+            this.searchWeather(this.weather.data.name, this.ShowRealTemp, this.displayForecast)
+        }
     }
 }
 </script>
@@ -197,6 +185,7 @@ export default {
     background-color: rgb(249, 249, 249);
     border: none;
     outline: none;
+    padding-left: 15px !important;
 }
 
 .search-box,
