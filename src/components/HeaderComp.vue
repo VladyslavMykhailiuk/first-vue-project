@@ -6,7 +6,7 @@
             <button @click="$router.push('/graphics')">Графіки</button>
             <button @click="$router.push('/auth')">Вхід</button>
         </div>
-        <button @click="$router.push('/user')">Мій профіль</button>
+        <button class="bigbtn" @click="$router.push('/user')">Мій профіль</button>
     </div>
 </template>
 
@@ -45,6 +45,7 @@ button {
     border: none;
 }
 
+
 button:hover {
     background-color: #fff;
     color: rgba(0, 0, 0, 1);
@@ -55,5 +56,19 @@ button:hover {
 
 .buttons-center button {
     margin-left: 20px;
+}
+
+@media(max-width: 992px) {
+    button {
+        width: 100px;
+        font-size: 12px;
+    }
+}
+
+@media(max-width: 768px) {
+    button {
+        width: 60px;
+        font-size: 12px;
+    }
 }
 </style>

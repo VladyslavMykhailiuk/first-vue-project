@@ -134,4 +134,11 @@ button:hover {
     animation: headShake;
     animation-duration: 2s;
 }
+
+@media(max-width: 992px) {
+    #myChart {
+        width: 700px !important;
+        height: 350px !important;
+    }
+}
 </style>
