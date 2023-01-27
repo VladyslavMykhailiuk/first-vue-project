@@ -52,11 +52,19 @@ export default {
             }
         },
         searchForCard(city) {
-            axiosInstance.get('weather', {
-                params: {
-                    "q": city,
-                },
-            }).then(this.drawCard);
+            if (this.test1.length === 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Ви нічого не ввели',
+                })
+            }
+            else {
+                axiosInstance.get('weather', {
+                    params: {
+                        "q": city,
+                    },
+                }).then(this.drawCard);
+            }
         }
     }
 

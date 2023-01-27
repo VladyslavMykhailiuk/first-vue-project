@@ -2,7 +2,9 @@
     <div>
         <h1>Графіки зміни погодних умов</h1>
         <div class="search">
-            <input v-model="inputValue" placeholder="Введіть ваше місто">
+            <GMapAutocomplete class="input" v-bind:value="inputValue" v-on:change="inputValue = $event.target.value"
+                placeholder="Введіть ваше місто">
+            </GMapAutocomplete>
             <button v-on:click="deleteChart">Відрисувати графік</button>
         </div>
         <h3>Останнє введене місто: {{ graphic.city.name }}</h3>
@@ -64,6 +66,7 @@ export default {
                 this.config.data.labels = []
                 this.config.data.datasets[0].data = []
                 this.getGraphic(this.inputValue, this.config.data.labels, this.config.data.datasets[0].data, this.createChart)
+                this.inputValue = ''
             }
         },
     },
@@ -105,7 +108,7 @@ h3 {
     align-items: center;
 }
 
-input {
+.input {
     border: none;
     outline: none;
     padding-left: 15px;

@@ -68,6 +68,7 @@
 import axiosInstance from '@/assets/AxiosInstance'
 import { useWeatherStore } from "@/stores/weatherStore";
 import { mapState, mapActions } from "pinia";
+import Swal from 'sweetalert2'
 
 const weekDays = [
     "Sunday",
@@ -137,9 +138,17 @@ export default {
             this.forecast = response.data.list;
         },
         clickOnSearch(event) {
-            event.preventDefault();
-            this.searchWeather(this.searchInput, this.ShowRealTemp, this.displayForecast)
-            this.searchInput = ''
+            if (this.searchInput.length === 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Ви нічого не ввели',
+                })
+            }
+            else {
+                event.preventDefault();
+                this.searchWeather(this.searchInput, this.ShowRealTemp, this.displayForecast)
+                this.searchInput = ''
+            }
 
         },
         formatDate(timestamp) {

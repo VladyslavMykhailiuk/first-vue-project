@@ -2,7 +2,7 @@
   <div class="container">
     <HeaderComp />
     <router-view v-slot="{ Component }">
-      <keep-alive include="WeatherPage,GraphicPage">
+      <keep-alive include="WeatherPage,GraphicPage,UserProfile">
         <component :is="Component" />
       </keep-alive>
     </router-view>
