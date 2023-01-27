@@ -18,6 +18,7 @@ export const useAuthStore = defineStore('auth', {
             this.usersState.forEach(element => {
                 if (data.username == element.username && data.password == element.password) {
                     this.user = element
+                    localStorage.setItem('user', JSON.stringify(element))
                 }
             });
 
@@ -25,6 +26,7 @@ export const useAuthStore = defineStore('auth', {
         },
         logout() {
             this.user = {};
+            localStorage.removeItem('user')
         }
     }
 })

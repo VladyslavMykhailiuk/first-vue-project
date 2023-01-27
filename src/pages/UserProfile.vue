@@ -4,9 +4,9 @@
             <div class="col-lg-4">
                 <div class="card mb-4">
                     <div class="card-body text-center">
-                        <img :src="user.img" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
-                        <h5 class="my-3">{{ user.name }} {{ user.surname }}</h5>
-                        <p class="text-muted mb-1">{{ user.status }}</p>
+                        <img :src="img" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                        <h5 class="my-3">{{ name }} {{ surname }}</h5>
+                        <p class="text-muted mb-1">{{ status }}</p>
                         <button type="submit" class="btn btn-success" @click="myLogout">Logout</button>
                     </div>
                 </div>
@@ -15,11 +15,11 @@
                         <ul class="list-group list-group-flush rounded-3">
                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                 <i class="fab fa-github fa-lg" style="color: #333333;"></i>
-                                <p class="mb-0">{{ user.github }}</p>
+                                <p class="mb-0">{{ github }}</p>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                 <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
-                                <p class="mb-0">{{ user.instagram }}</p>
+                                <p class="mb-0">{{ instagram }}</p>
                             </li>
                         </ul>
                     </div>
@@ -33,7 +33,7 @@
                                 <p class="mb-0">Full Name</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ user.name }} {{ user.surname }}</p>
+                                <p class="text-muted mb-0">{{ name }} {{ surname }}</p>
                             </div>
                         </div>
                         <hr>
@@ -42,7 +42,7 @@
                                 <p class="mb-0">Phone</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ user.phone }}</p>
+                                <p class="text-muted mb-0">{{ phone }}</p>
                             </div>
                         </div>
                         <hr>
@@ -51,7 +51,7 @@
                                 <p class="mb-0">Address</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ user.adress }}</p>
+                                <p class="text-muted mb-0">{{ adress }}</p>
                             </div>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
 <script>
 import BoardItem from "@/components/BoardItem.vue"
 import { useAuthStore } from "@/stores/authStore";
-import { mapState, mapActions } from "pinia";
+import { mapActions } from "pinia";
 export default {
     name: 'UserProfile',
     components: {
@@ -77,7 +77,14 @@ export default {
     },
     data() {
         return {
-
+            name: JSON.parse(localStorage.getItem('user')).name,
+            surname: JSON.parse(localStorage.getItem('user')).surname,
+            img: JSON.parse(localStorage.getItem('user')).img,
+            status: JSON.parse(localStorage.getItem('user')).status,
+            github: JSON.parse(localStorage.getItem('user')).github,
+            instagram: JSON.parse(localStorage.getItem('user')).instagram,
+            adress: JSON.parse(localStorage.getItem('user')).adress,
+            phone: JSON.parse(localStorage.getItem('user')).phone,
         }
     },
     props: {
@@ -91,7 +98,7 @@ export default {
         }
     },
     computed: {
-        ...mapState(useAuthStore, ["user"])
+        // ...mapState(useAuthStore, ["user"])
     },
 }
 

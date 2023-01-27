@@ -4,7 +4,7 @@ import GraphicPage from "@/pages/GraphicPage"
 import AuthPage from "@/pages/AuthPage"
 import UserProfile from "@/pages/UserProfile"
 import { createRouter, createWebHashHistory } from "vue-router";
-import { useAuthStore } from "@/stores/authStore";
+// import { useAuthStore } from "@/stores/authStore";
 
 
 
@@ -47,8 +47,8 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-    const store = useAuthStore();
-    if (requiresAuth && !store.user.username) {
+    // const store = useAuthStore();
+    if (requiresAuth && !localStorage.getItem('user')) {
         next('/auth');
     } else {
         next();
